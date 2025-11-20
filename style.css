@@ -1,0 +1,258 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+body{
+    height: 8%;
+}
+.navbar{
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0%;
+    z-index: 999;
+    background-color: white;
+}
+.navbar .logo h1{
+    margin-top: 15%;
+    color: black;
+    cursor: pointer;
+    border-bottom: 1px solid #000;
+}
+.navbar .menu li{
+    list-style: none;
+    display: inline-block;
+}
+.navbar .menu li a{
+    display: block;
+    margin-top: 15%;
+    margin-left: 70px;
+    color: black;
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+.navbar .menu li .active{
+    border-bottom: 1px solid #000;
+}
+.navbar .menu li .a:hover{
+    border-bottom: 1px solid #000;
+}
+
+
+.content{
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #000;
+    height: 100vh;
+}
+.content h1{
+    margin-top: -400px;
+    font-size: 30px;
+    margin-left: 70px;
+}
+.content p{
+    margin-left: 15px;
+    font-size: 23px;
+    margin-top: 3px;
+}
+.produits_texte{
+    text-align: left;
+    font-size: 30px;
+    font-weight: 300;
+    margin-top: 30px;
+    margin-left: 80px;
+    color: #000;
+}
+.section_produits{
+    padding: 40px 5%;
+}
+.produits{
+    margin-left: 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.produits .carte{
+    width: 310px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.produits .carte img{
+    height: 330px;
+    width: 100%;
+    border-radius: 10PX;
+}
+.produits .carte .desc{
+    padding: 5px 20px;
+    opacity: 0.8;
+}
+.produits .carte .titre{
+    font-weight: 900;
+    font-size: 20px;
+    color: #000;
+    padding: 0 20px;
+}
+.produits .carte .box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.produits .carte .prix{
+    color: rgb(6, 6, 6);
+    font-size: 20px;
+    font-weight: bold;
+}
+.produits .carte .achat{
+    font-size: 13px;
+    font-weight: 900;
+    background-color: #000;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+footer{
+    background-color: white;
+    height: 10vh;
+}
+footer p{
+    text-align: center;
+    line-height: 10vh;
+}
+footer p a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .navbar .logo h1 {
+        margin-top: 0;
+        font-size: 20px;
+    }
+
+    .navbar .menu li a {
+        margin-left: 20px;
+        margin-top: 0;
+        font-size: 14px;
+    }
+
+    .produits_texte {
+        margin-left: 20px;
+        font-size: 22px;
+    }
+
+    .produits {
+        margin-left: 0;
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+
+    .produits .carte {
+        width: 100%;
+        max-width: 350px;
+        margin: auto;
+    }
+
+    .produits .carte img {
+        height: auto;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+}
+
+.panier {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 260px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 15px;
+    z-index: 9999;
+}
+
+.panier h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#panier-items {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#panier-items li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+#panier-items li .remove {
+    background: black;
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.total {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.qte-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+}
+
+.qte-controls button {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 2px 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.commander {
+    margin-top: 10px;
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
