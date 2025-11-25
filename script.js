@@ -149,3 +149,70 @@ function updateBigCountdown() {
 setInterval(updateBigCountdown, 1000);
 updateBigCountdown();
 
+
+document.querySelectorAll(".carousel").forEach(carousel => {
+    const images = JSON.parse(carousel.dataset.images);
+    const img = carousel.querySelector(".carousel-img");
+    const btnLeft = carousel.querySelector(".carousel-btn.left");
+    const btnRight = carousel.querySelector(".carousel-btn.right");
+    const dotsContainer = carousel.querySelector(".dots");
+
+    let index = 0;
+
+    // Génération des dots
+    images.forEach((_, i) => {
+        const dot = document.createElement("span");
+        if (i === 0) dot.classList.add("active");
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll("span");
+
+    function updateCarousel() {
+        img.src = images[index];
+        dots.forEach(d => d.classList.remove("active"));
+        dots[index].classList.add("active");
+    }
+
+    btnRight.addEventListener("click", () => {
+        index = (index + 1) % images.length;
+        updateCarousel();
+    });
+
+    btnLeft.addEventListener("click", () => {
+        index = (index - 1 + images.length) % images.length;
+        updateCarousel();
+    });
+
+    // Pour mobile → montrer les flèches lors du toucher
+    carousel.addEventListener("touchstart", () => {
+        btnLeft.style.opacity = "1";
+        btnRight.style.opacity = "1";
+        setTimeout(() => {
+            btnLeft.style.opacity = "0";
+            btnRight.style.opacity = "0";
+        }, 1500);
+    });
+});
+
+    // --- Swipe mobile ---
+    let startX = 0;
+
+    carousel.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener("touchend", (e) => {
+        let endX = e.changedTouches[0].clientX;
+
+        if (startX - endX > 40) {
+            // Swipe gauche → image suivante
+            index = (index + 1) % images.length;
+            updateCarousel();
+        } 
+        else if (endX - startX > 40) {
+            // Swipe droite → image précédente
+            index = (index - 1 + images.length) % images.length;
+            updateCarousel();
+        }
+    });
