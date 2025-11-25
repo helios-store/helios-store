@@ -376,3 +376,20 @@ footer p a{
         max-height: 450px;
     }
 }
+
+/* Empêche la carte de couper l'image sur mobile */
+@media (max-width: 768px) {
+    .produits .carte {
+        height: auto !important;
+    }
+
+    .carousel {
+        height: auto !important;
+    }
+
+    .carousel-img {
+        height: auto !important;
+        max-height: none !important;
+        object-fit: contain !important;
+    }
+}
