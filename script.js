@@ -174,6 +174,7 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         dots[index].classList.add("active");
     }
 
+    // Click flèches
     btnRight.addEventListener("click", () => {
         index = (index + 1) % images.length;
         updateCarousel();
@@ -184,7 +185,7 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         updateCarousel();
     });
 
-    // Pour mobile → montrer les flèches lors du toucher
+    // Affichage flèches mobile
     carousel.addEventListener("touchstart", () => {
         btnLeft.style.opacity = "1";
         btnRight.style.opacity = "1";
@@ -193,7 +194,6 @@ document.querySelectorAll(".carousel").forEach(carousel => {
             btnRight.style.opacity = "0";
         }, 1500);
     });
-});
 
     // --- Swipe mobile ---
     let startX = 0;
@@ -206,13 +206,12 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         let endX = e.changedTouches[0].clientX;
 
         if (startX - endX > 40) {
-            // Swipe gauche → image suivante
             index = (index + 1) % images.length;
             updateCarousel();
         } 
         else if (endX - startX > 40) {
-            // Swipe droite → image précédente
             index = (index - 1 + images.length) % images.length;
             updateCarousel();
         }
     });
+});
