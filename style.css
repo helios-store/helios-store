@@ -393,3 +393,15 @@ footer p a{
         object-fit: contain !important;
     }
 }
+/* Ajustement du compte à rebours sur mobile */
+@media (max-width: 768px) {
+    #countdown-big {
+        font-size: 40px;     /* Taille plus petite */
+        letter-spacing: 0;   /* Réduit l'écartement  */
+        word-break: break-word;
+    }
+
+    #countdown-container {
+        padding: 0 10px;     /* Ajoute un peu de marge */
+    }
+}
