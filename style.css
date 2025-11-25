@@ -363,3 +363,16 @@ footer p a{
         opacity: 1;                 /* Pas besoin de hover sur mobile */
     }
 }
+
+@media (max-width: 768px) {
+    .carousel {
+        height: auto;
+    }
+
+    .carousel-img {
+        object-fit: contain !important;
+        background-color: #fff;
+        height: auto;
+        max-height: 450px;
+    }
+}
