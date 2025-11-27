@@ -1,3 +1,12 @@
+// ----- PRELOAD IMAGES -----
+document.querySelectorAll(".carousel").forEach(carousel => {
+    const images = JSON.parse(carousel.dataset.images);
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src; // met en cache l'image → affichage instantané après
+    });
+});
+
 // === VARIABLES ===
 const iconePanier = document.querySelector(".fa-cart-shopping");
 const panierDiv = document.getElementById("panier");
