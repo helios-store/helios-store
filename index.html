@@ -46,7 +46,10 @@
     <div class="titre">Ardent I</div>
     <div class="box">
         <div class="prix">??€</div>
-        <button class="achat" data-name="Ardent I" data-price="18€">Ajouter au panier</button>
+        <button class="achat"
+        data-name="Ardent I"
+        data-price="18€"
+        data-size-guide="guide.png">Ajouter au panier</button>
        </div>
     </div>
 
@@ -62,7 +65,10 @@
                 <div class="titre">Ardent I : Spécial EDITION</div>
                 <div class="box">
                     <div class="prix">??€</div>
-                    <button class="achat" data-name="Ardent I Long Sleeves" data-price="20€">Ajouter au panier</button>
+                    <button class="achat"
+        data-name="Ardent I Long Sleeves"
+        data-price="20€"
+        data-size-guide="logo2.JPEG">Ajouter au panier</button>
                 </div>
             </div>
 
@@ -78,7 +84,10 @@
                 <div class="titre">Embrasement II</div>
                 <div class="box">
                     <div class="prix">??€</div>
-                    <button class="achat" data-name="Embrasement II" data-price="20€">Ajouter au panier</button>
+                    <button class="achat"
+        data-name="Embrasement II"
+        data-price="20€"
+        data-size-guide="logo2.JPEG">Ajouter au panier</button>
                 </div>
             </div>
 
@@ -131,6 +140,56 @@
     <button id="envoyer-commande" class="commander">Envoyer la commande</button>
 </div>
 </div>
+
+<div id="product-modal" class="modal">
+<div class="modal-content">
+<span id="close-modal" class="close">&times;</span>
+
+<div class="modal-left">
+<img id="modal-image" src="" alt="Produit">
+</div>
+
+<div class="modal-right">
+<h2 id="modal-title"></h2>
+<p id="modal-price"></p>
+
+<h3>Tailles disponibles</h3>
+<div id="modal-sizes" class="sizes"></div>
+
+<button id="open-size-guide" class="guide-btn">Guide des tailles</button>
+
+<button id="open-livraison" class="guide-btn">Livraison</button>
+
+
+<button id="add-to-cart-modal" class="add-btn">Ajouter au panier</button>
+</div>
+</div>
+</div>
+
+<!-- Modale du Guide des tailles -->
+<div id="size-guide-modal" class="modal">
+<div class="modal-content guide">
+<span id="close-guide" class="close">&times;</span>
+
+<img src="guide.png" alt="Guide des tailles" class="guide-img">
+</div>
+</div>
+
+<!-- Modale Livraison -->
+<div id="livraison-modal" class="modal">
+    <div class="modal-content guide">
+        <span id="close-livraison" class="close">&times;</span>
+        <h2>Livraison</h2>
+
+        <p style="font-size: 16px; margin-top: 10px;">
+            🇫🇷 Expédition depuis la France<br><br>
+            📦 Suivi disponible par email : helios.storefr@gmail.com :<br><br>
+               - Fournir justificatif de paiement.<br><br>
+               - Numéro de commande.<br><br>
+        </p>
+    </div>
+</div>
+
 
 
 <!-- EmailJS -->

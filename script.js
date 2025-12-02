@@ -29,7 +29,8 @@ iconePanier.addEventListener("click", () => {
 
 // === AJOUTER AU PANIER ===
 document.querySelectorAll(".achat").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Empêche ouverture de modale lors d'un clic sur bouton
         const name = btn.dataset.name;
         const price = parseFloat(btn.dataset.price);
 
@@ -99,7 +100,6 @@ btnEnvoyerCommande.addEventListener("click", () => {
         return;
     }
 
-    // Génération d’un numéro de commande
     const order_id = Math.floor(100000 + Math.random() * 900000);
 
     const items = panier
@@ -107,8 +107,6 @@ btnEnvoyerCommande.addEventListener("click", () => {
         .join("\n");
 
     const total = totalSpan.textContent;
-
-    const orderId = Math.floor(100000 + Math.random() * 900000);  // 6 chiffres
 
     const params = {
         email_client: email,
@@ -132,7 +130,6 @@ btnEnvoyerCommande.addEventListener("click", () => {
 
 
 // ----- COMPTE À REBOURS -----
-// ✔️ MODIFIE ICI LA DATE DU DROP
 const targetDate = new Date("2026-01-20 18:00:00").getTime();
 
 function updateBigCountdown() {
@@ -159,6 +156,10 @@ setInterval(updateBigCountdown, 1000);
 updateBigCountdown();
 
 
+// =========================================================
+// CARROUSEL (AVEC stopPropagation POUR LES FLÈCHES)
+// =========================================================
+
 document.querySelectorAll(".carousel").forEach(carousel => {
     const images = JSON.parse(carousel.dataset.images);
     const img = carousel.querySelector(".carousel-img");
@@ -183,13 +184,15 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         dots[index].classList.add("active");
     }
 
-    // Click flèches
-    btnRight.addEventListener("click", () => {
+    // Click flèches (IMPORTANT : on empêche l'ouverture de la modale)
+    btnRight.addEventListener("click", (e) => {
+        e.stopPropagation();
         index = (index + 1) % images.length;
         updateCarousel();
     });
 
-    btnLeft.addEventListener("click", () => {
+    btnLeft.addEventListener("click", (e) => {
+        e.stopPropagation();
         index = (index - 1 + images.length) % images.length;
         updateCarousel();
     });
@@ -204,7 +207,7 @@ document.querySelectorAll(".carousel").forEach(carousel => {
         }, 1500);
     });
 
-    // --- Swipe mobile ---
+    // Swipe mobile
     let startX = 0;
 
     carousel.addEventListener("touchstart", (e) => {
@@ -223,4 +226,154 @@ document.querySelectorAll(".carousel").forEach(carousel => {
             updateCarousel();
         }
     });
+});
+
+
+// =========================================================
+// MODALE PRODUIT
+// =========================================================
+
+const productModal = document.getElementById("product-modal");
+const sizeGuideModal = document.getElementById("size-guide-modal");
+
+const modalImage = document.getElementById("modal-image");
+const modalTitle = document.getElementById("modal-title");
+const modalPrice = document.getElementById("modal-price");
+const modalSizes = document.getElementById("modal-sizes");
+const btnAddToCartModal = document.getElementById("add-to-cart-modal");
+
+const tailles = ["S", "M", "L", "XL"];
+
+// OUVERTURE MODALE AU CLICK SUR PRODUIT
+document.querySelectorAll(".carte").forEach(card => {
+    card.addEventListener("click", () => {
+        const titre = card.querySelector(".titre").textContent;
+        const prix = card.querySelector(".box .achat").dataset.price;
+        const img = card.querySelector(".carousel-img")?.src 
+                 || card.querySelector("img")?.src;
+
+        modalTitle.textContent = titre;
+        modalPrice.textContent = prix;
+        modalImage.src = img;
+
+        // Génération des tailles
+        modalSizes.innerHTML = "";
+        tailles.forEach(t => {
+            const btn = document.createElement("button");
+            btn.className = "size-btn";
+            btn.textContent = t;
+
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+            });
+
+            modalSizes.appendChild(btn);
+        });
+
+        productModal.style.display = "flex";
+    });
+});
+
+// FERMETURE DE LA MODALE PRODUIT
+document.getElementById("close-modal").addEventListener("click", () => {
+    productModal.style.display = "none";
+});
+
+// CLIQUE EN DEHORS POUR FERMER
+window.addEventListener("click", (e) => {
+    if (e.target === productModal) productModal.style.display = "none";
+});
+
+// OUVERTURE GUIDE DES TAILLES
+document.getElementById("open-size-guide").addEventListener("click", (e) => {
+    e.stopPropagation();
+    sizeGuideModal.style.display = "flex";
+});
+
+// FERMETURE GUIDE
+document.getElementById("close-guide").addEventListener("click", () => {
+    sizeGuideModal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === sizeGuideModal) sizeGuideModal.style.display = "none";
+});
+
+// AJOUT AU PANIER VIA MODALE
+btnAddToCartModal.addEventListener("click", () => {
+    const sizeSelected = document.querySelector(".size-btn.active");
+
+    if (!sizeSelected) {
+        alert("Veuillez choisir une taille.");
+        return;
+    }
+
+    const name = modalTitle.textContent + " (" + sizeSelected.textContent + ")";
+    const price = parseFloat(modalPrice.textContent);
+
+    const existing = panier.find(p => p.name === name);
+
+    if (existing) existing.qty++;
+    else panier.push({ name, price, qty: 1 });
+
+    updatePanier();
+    productModal.style.display = "none";
+});
+
+// --------------------------
+// MODALE LIVRAISON
+// --------------------------
+
+const livraisonModal = document.getElementById("livraison-modal");
+
+// Ouvrir
+document.getElementById("open-livraison").addEventListener("click", (e) => {
+    e.stopPropagation();
+    livraisonModal.style.display = "flex";
+});
+
+// Fermer avec le X
+document.getElementById("close-livraison").addEventListener("click", () => {
+    livraisonModal.style.display = "none";
+});
+
+// Fermer en cliquant à l’extérieur
+window.addEventListener("click", (e) => {
+    if (e.target === livraisonModal) livraisonModal.style.display = "none";
+});
+
+// Variable pour stocker le guide associé
+let currentSizeGuide = "guide.png";
+
+// Quand on ouvre la modale produit
+document.querySelectorAll(".achat").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        // Récupère le guide du bouton cliqué
+        currentSizeGuide = this.getAttribute("data-size-guide") || "guide.png";
+
+        // Sélectionne l'image dans la modale
+        const guidePreview = document.querySelector("#size-guide-modal img");
+        if (guidePreview) {
+            guidePreview.src = currentSizeGuide;
+        }
+    });
+});
+
+// Ouvrir la modale guide des tailles
+document.getElementById("open-size-guide").addEventListener("click", () => {
+    const guideModal = document.getElementById("size-guide-modal");
+    
+    const guideImg = guideModal.querySelector("img");
+
+    // S'assure que la bonne image est affichée
+    guideImg.src = currentSizeGuide;
+
+    guideModal.style.display = "flex";
+});
+
+// Fermeture du guide des tailles
+document.getElementById("close-guide").addEventListener("click", () => {
+    document.getElementById("size-guide-modal").style.display = "none";
 });

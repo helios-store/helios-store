@@ -405,3 +405,190 @@ footer p a{
         padding: 0 10px;     /* Ajoute un peu de marge */
     }
 }
+
+/* ================================
+   MODALE PRODUIT (STYLE PRO)
+   ================================ */
+
+.modal {
+    display: none; /* masquée au début */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.modal-content {
+    background: white;
+    width: 80%;
+    max-width: 900px;
+    display: flex;
+    gap: 30px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    animation: fadeIn 0.25s ease-out;
+}
+
+/* Animation douce */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Bouton X */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+/* Part gauche */
+.modal-left img {
+    width: 350px;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+/* Part droite */
+.modal-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.modal-right h2 {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.modal-right p {
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+/* TITRE prix */
+#modal-price {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Tailles */
+.sizes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.size-btn {
+    padding: 8px 20px;
+    border: 1px solid black;
+    border-radius: 30px;
+    cursor: pointer;
+    background: white;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.size-btn:hover {
+    background: black;
+    color: white;
+}
+
+.size-btn.active {
+    background: black !important;
+    color: white !important;
+}
+
+/* Bouton Guide des tailles */
+
+.guide-btn {
+    margin-top: 15px;
+    background: transparent;
+    border: 1px solid black;
+    padding: 8px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.guide-btn:hover {
+    background: black;
+    color: white;
+}
+
+/* Livraison */
+.livraison {
+    margin-top: 20px;
+    color: #555;
+}
+
+/* Bouton Ajouter au panier */
+.add-btn {
+    margin-top: 25px;
+    background: black;
+    color: white;
+    padding: 12px 0;
+    border: none;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    opacity: 0.85;
+}
+
+/* ================================
+   MODALE GUIDE DES TAILLES
+   ================================ */
+
+#size-guide-modal .modal-content.guide {
+    max-width: 500px;
+    text-align: center;
+}
+
+.guide-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* ================================
+   RESPONSIVE (MOBILE)
+   ================================ */
+
+@media (max-width: 768px) {
+
+    .modal-content {
+        flex-direction: column;
+        width: 90%;
+        padding: 15px;
+    }
+
+    .modal-left img {
+        width: 100%;
+        max-height: 350px;
+        object-fit: contain;
+    }
+
+    .modal-right h2 {
+        font-size: 22px;
+    }
+}
