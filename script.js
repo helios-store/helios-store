@@ -130,7 +130,7 @@ btnEnvoyerCommande.addEventListener("click", () => {
 
 
 // ----- COMPTE À REBOURS -----
-const targetDate = new Date("2026-01-20 18:00:00").getTime();
+const targetDate = new Date("2026-05-20 18:00:00").getTime();
 
 function updateBigCountdown() {
     const now = new Date().getTime();
